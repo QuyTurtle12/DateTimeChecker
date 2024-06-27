@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Date Time Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+        }
+
+        .header {
+            color: blue;
+            font-size: 26px;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        .form-group label {
+            display: block;
+            text-align: left;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .valid p {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">Date Time Checker</div>
+        <form th:action="@{/checkDate}" method="post" th:object="${dateForm}">
+            <div class="form-group">
+                <label for="day">Day</label>
+                <input type="text" id="day" th:field="*{day}">
+            </div>
+            <div class="form-group">
+                <label for="month">Month</label>
+                <input type="text" id="month" th:field="*{month}">
+            </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="text" id="year" th:field="*{year}">
+            </div>
+            <div class="form-group">
+                <button type="submit">Check</button>
+                <button type="button" onclick="clearForm()">Clear</button>
+            </div>
+        </form>
+
+        <div id="error" th:if="${error != null}">
+            <p class="error" th:text="${error}"></p>
+        </div>
+        <div id="success" th:if="${success != null}">
+            <p class="success" th:text="${success}"></p>
+        </div>
+
+    </div>
+    <script>
+        function clearForm() {
+            // Reset the form fields
+            document.getElementById('day').value = '';
+            document.getElementById('month').value = '';
+            document.getElementById('year').value = '';
+            // Clear the result message
+            document.getElementById('error').innerHTML = '';
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
